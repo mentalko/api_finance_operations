@@ -2,12 +2,8 @@ from pydantic import BaseModel
 from datetime import date
 from decimal import Decimal
 from typing import Optional
-from enum import Enum
 
-class OperationKind(str, Enum):
-    INCOME = 'income'
-    OUTCOME = 'outcome'
-
+from .constants import OperationKind
 
 class BaseOperation(BaseModel):
     date: date

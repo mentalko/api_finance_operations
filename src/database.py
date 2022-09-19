@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import session
 from sqlalchemy.orm.session import Session
 
-from workshop.settings import settings
+from src.settings import settings
 
 engine = create_engine(
     settings.database_url,
