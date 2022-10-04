@@ -16,6 +16,6 @@
     pytest --log-cli-level=INFO
 ```
 
-![Screenshot](screenshot.png)
+![Screenshot](screenshot2.png)
 
 

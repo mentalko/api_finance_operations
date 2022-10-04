@@ -1,22 +1,22 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 from fastapi import APIRouter
 from fastapi import Depends, Response, status
 
-from .. import tables 
-from ..database import get_session
-from ..models.operations import Operation, OperationCreate, OperationKind, OperationUpdate
-from ..services.operations import OperationsService
+from src import tables 
+from src.database import get_session
+from src.models.operations import Operation, OperationCreate, OperationUpdate
+from src.models.constants import  OperationKind, IncomeType, OutcomeType
+from src.services.operations import OperationsService
 
-router = APIRouter(
-    prefix='/operations'
-)
+router = APIRouter()
 
 @router.get('/', response_model=List[Operation])
 def get_operations(
     kind: Optional[OperationKind] = None,
+    operation_type: Optional[Union[IncomeType, OutcomeType]] = None,
     service: OperationsService = Depends()
 ):
-    return service.get_list(kind=kind)
+    return service.get_list(kind=kind, operation_type=operation_type)
 
 @router.post('/', response_model=Operation)
 def create_operation(

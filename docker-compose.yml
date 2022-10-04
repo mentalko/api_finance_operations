@@ -1,0 +1,56 @@
+version: '3.7'
+services:
+
+  api:
+    image: api-image
+    container_name: api
+    restart: unless-stopped
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - rest-api
+
+
+  db:
+    image: postgres:latest
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: pass
+
+    volumes:
+      - ./schema:/docker-entrypoint-initdb.d
+      # - ./pgdata:/var/lib/postgresql/data 
+    ports:
+      - "5432:5432"
+    networks:
+      - rest-api
+
+
+  # ip addr to find host, dashboard runs on localhost:16543
+  # https://onexlab-io.medium.com/docker-compose-postgres-initdb-ba0021deef76
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: unless-stopped
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: "admin@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports: 
+      - "16543:80"
+    depends_on: 
+      - db
+    networks:
+      - rest-api
+    logging:
+      driver: none
+
+
+networks:
+  rest-api:
+    driver: bridge
