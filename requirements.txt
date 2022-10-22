@@ -1,4 +1,6 @@
 fastapi
+fastapi-users[sqlalchemy]
+
 uvicorn
 pydantic
 python-dotenv
@@ -7,4 +9,4 @@ pytest
 requests
 
 asyncpg 
-psycopg2-binary
+# psycopg2-binary

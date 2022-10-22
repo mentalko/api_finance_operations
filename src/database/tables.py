@@ -2,7 +2,13 @@ import sqlalchemy as sa
 from sqlalchemy import engine
 from sqlalchemy.ext.declarative import declarative_base
 
+from fastapi_users.db import SQLAlchemyBaseUserTableUUID, SQLAlchemyUserDatabase
+
 Base = declarative_base()
+
+class User(SQLAlchemyBaseUserTableUUID, Base):
+    pass
+
 
 class Operation(Base):
     __tablename__ = 'operations'
@@ -14,8 +20,6 @@ class Operation(Base):
     amount = sa.Column(sa.Numeric(10, 2))
     description = sa.Column(sa.String, nullable=True)
     operation_type = sa.Column(sa.String, nullable=True)
-
-
 
 
 class Wallet(Base):
